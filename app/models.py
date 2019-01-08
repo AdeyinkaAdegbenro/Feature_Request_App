@@ -1,6 +1,7 @@
 from app import db
 
 class FeatureRequest(db.Model):
+    ''' this definition describes the Feature Request created by user '''
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
     description = db.Column(db.Text)
@@ -16,6 +17,7 @@ class FeatureRequest(db.Model):
 
 
 class Client(db.Model):
+    '''this model represents the Client selected by user when creating a feature request'''
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
 
@@ -28,6 +30,8 @@ class Client(db.Model):
 
 
 class ProductArea(db.Model):
+        '''this model represents the Product Area
+         selected by user when creating a feature request'''
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
 
