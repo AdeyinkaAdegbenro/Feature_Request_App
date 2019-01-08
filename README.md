@@ -50,6 +50,6 @@ HTML template is located in a `app/templates` folder - `index.html` is the file 
 
 
 ## Deployment
-This application was deployed to pythonanywhere.com which has servers that run on Ubuntu
+This application was deployed to pythonanywhere.com which has servers that run on Ubuntu. It was deployed by cloning the application from the current repository on github and setting up the database.
 
->Visit https://btfbot.herokuapp.com to view the current landing page of this project.
+>Visit http://adeyinka.pythonanywhere.com/ to view the current landing page of this project.
