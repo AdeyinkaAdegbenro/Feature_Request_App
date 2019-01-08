@@ -1,6 +1,7 @@
 alembic==1.0.5
 astroid==2.1.0
 Click==7.0
+cryptography==2.4.2
 Flask==1.0.2
 Flask-Migrate==2.3.1
 Flask-SQLAlchemy==2.3.2

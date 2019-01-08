@@ -1,11 +1,9 @@
 $(document).ready(function() {
-    console.log('Hire me BriteCore, pretty please.')
-
     // show form when `add a feature` button is clicked
     $('#feature-request-button').click(function(e) {
-        console.log('clicked')
         $('#feature-request-add').css('display', 'none');
         $('#feature-request-form').css('display', 'block')
+        $('#requests-table').css('display', 'none')
     })
 
     // create form validation
@@ -76,7 +74,6 @@ $(document).ready(function() {
         if (feature_form.form('is valid')) {
             // form is valid
             values = feature_form.serializeArray()
-            console.log('values', values)
             // send form values to server
             $.ajax({
                 type: 'POST',
@@ -85,16 +82,20 @@ $(document).ready(function() {
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function submitFormCallback(data) {
-                    console.log(data)
                     // show submission confirmation to user
                     $('#feature-request-form').css('display', 'none')
                     $('#form-filled').css('display', 'block')
                     setTimeout(function () {
                         window.location.reload()
-                    }, 100);
+                    }, 1000);
                 },
                 error: function submitFail (err) {
                     console.log(err)
+                    // error submitting form
+                    $('#error-form').css('display', 'block')
+                    setTimeout(function () {
+                        window.location.reload()
+                    }, 3000);
                 }
             })
         }
