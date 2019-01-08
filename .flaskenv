@@ -1,2 +1,1 @@
-FLASK_ENV=development
 FLASK_APP=feature_request.py
