@@ -1,0 +1,115 @@
+<html>
+    <head>
+        <title>Feature Request App</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+        <script src="static/js/index.js"></script>
+        <link rel="stylesheet" type="text/css" href="static/styles/index.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    </head>
+    <body>
+        <div class="ui text container">
+            <div class="ui grid">
+                <div class="row">
+                    <div class="ui dividing header">Feature Request</div>
+                </div>
+                <div class="row" id="feature-request-add">
+                    <div class="ui twelve wide column">
+                        <div class="ui icon button" id="feature-request-button"><i class="ui add icon"></i>add a feature request</div>
+                    </div>
+                </div>
+                {% if feature_requests | length %}
+                    <div class="row">
+                        <div class="ui sixteen wide column">
+                            <div class="ui piled segment">
+                                <div class="ui dividing header">All Feature Requests</div>
+                                <table class="ui striped table">
+                                    <thead>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Client</th>
+                                        <th>Client Priority</th>
+                                        <th>Target Date</th>
+                                        <th>Product Area</th>
+                                    </thead>
+                                    <tbody>
+                                        {% for req in feature_requests %}
+                                            <tr>
+                                                <td>{{ req.title }}</td>
+                                                <td>{{ req.description }}</td>
+                                                <td>{{ req.client.name}} </td>
+                                                <td>{{ req.client_priority }}</td>
+                                                <td>{{ req.target_date.strftime('%B %d, %Y') }}</td>
+                                                <td>{{ req.product_area.name }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row" id="feature-request-form">
+                    <div class="sixteen wide column">
+                        <div class="ui stacked segment">
+                            <form class="ui form" id="feature-form">
+                                <div class="field">
+                                    <label>Title</label>
+                                    <input type="text" name="title" placeholder="Feature Title">
+                                </div>
+                                <div class="field">
+                                    <label>Description</label>
+                                    <textarea name="description" placeholder="Feature Description"></textarea>
+                                </div>
+                                <div class="field">
+                                    <label>Client</label>
+                                    <select name="client" class="ui fluid dropdown">
+                                        <option value="">-- select a value --</option>
+                                        <option value="Client A">Client A</option>
+                                        <option value="Client B">Client B</option>
+                                        <option value="Client C">Client C</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label>Client Priority</label>
+                                    <input type="number" name="client_priority" placeholder="client priority e.g. 1">
+                                </div>
+                                <div class="ui field">
+                                    <label>Target Date</label>
+                                    <input id="target-date" type="text" name="target_date" placeholder="select a date">
+                                </div>
+                                <div class="ui field">
+                                    <label>Product Area</label>
+                                    <select name="product_area" class="ui fluid dropdown">
+                                        <option value="">-- select a value --</option>
+                                        <option value="Policies">Policies</option>
+                                        <option value="Billing">Billing</option>
+                                        <option value="Claims">Claims</option>
+                                        <option value="Reports">Reports</option>
+                                    </select>
+                                </div>
+                                <button id="submit-button" class="ui button" type="submit">Submit</button>
+                                <div class="ui error message"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="form-filled">
+                    <div class="ui twelve wide column">
+                        <div class="ui message">
+                            <p>Thank you</p>
+                            <p>Your feature request has been sent</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

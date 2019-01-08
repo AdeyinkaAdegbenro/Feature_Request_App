@@ -1,0 +1,102 @@
+$(document).ready(function() {
+    console.log('Hire me BriteCore, pretty please.')
+
+    // show form when `add a feature` button is clicked
+    $('#feature-request-button').click(function(e) {
+        console.log('clicked')
+        $('#feature-request-add').css('display', 'none');
+        $('#feature-request-form').css('display', 'block')
+    })
+
+    // create form validation
+    $('.ui.form').form({
+        on: 'blur',
+        fields: {
+          title: {
+            identifier: 'title',
+            rules: [{
+                type: 'empty',
+                prompt: 'Please enter a title for your feature request'
+            }]
+          },
+
+          description: {
+            identifier: 'description',
+            rules: [{
+                type: 'empty',
+                prompt: 'Please enter a description for your feature request'
+            }]
+          },
+
+          client: {
+            identifier: 'client',
+            rules: [{
+                type: 'empty',
+                prompt: 'Please select a client for your feature request'
+            }]
+          },
+
+          client_priority: {
+            identifier: 'client_priority',
+            rules: [{
+                type: 'empty',
+                prompt: 'Please enter a client priority value for your feature request'
+            }]
+          },
+
+          target_date: {
+            identifier: 'target_date',
+            rules: [{
+            type: 'empty',
+            prompt: 'Please select a target date'
+            }]
+          },
+
+          product_area: {
+            identifier: 'product_area',
+            rules: [{
+                type: 'empty',
+                prompt: 'Please select a product area for your feature request'
+            }]
+          }
+        }
+    })
+
+    // set up date picker for a better UX
+    $("#target-date").flatpickr({
+        altInput: true,
+        altFormat: "F j, Y",
+        dateFormat: "Y-m-d",
+    });
+
+    // handle form submission
+    var feature_form = $('#feature-form')
+    feature_form.submit(function( event ) {
+        event.preventDefault();
+        if (feature_form.form('is valid')) {
+            // form is valid
+            values = feature_form.serializeArray()
+            console.log('values', values)
+            // send form values to server
+            $.ajax({
+                type: 'POST',
+                url: '/',
+                data: JSON.stringify(values),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function submitFormCallback(data) {
+                    console.log(data)
+                    // show submission confirmation to user
+                    $('#feature-request-form').css('display', 'none')
+                    $('#form-filled').css('display', 'block')
+                    setTimeout(function () {
+                        window.location.reload()
+                    }, 100);
+                },
+                error: function submitFail (err) {
+                    console.log(err)
+                }
+            })
+        }
+    });
+  });
